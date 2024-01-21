@@ -24,8 +24,10 @@ def text_to_speech(text):
 #detected_letter = 'A'  
 #audio_data = text_to_speech(detected_letter)
 
-def talk():
+def talk(detected_letter):
+    audio_data = text_to_speech(detected_letter)    
     with open("output_audio.wav", "wb") as out_file:
         out_file.write(audio_data)
         
     playsound("output_audio.wav")
+
