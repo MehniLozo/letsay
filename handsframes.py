@@ -8,6 +8,7 @@ import numpy as np
 import time
 import pandas as pd
 from mod import Engine
+import talk
 
 model = load_model('americansign.h5')
 moderator = Engine()
@@ -27,6 +28,7 @@ letterpred = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', '
 
 print("********************** Current letter ************************")
 print()
+talk.talk("Perform" + moderator.current_letter)
 print(moderator.current_letter)
 print()
 print("***************************************************************")
@@ -99,6 +101,7 @@ while True:
         for key,value in letter_pred_dict.items():
             if value==pred1:
                 print("Predicted Character 1: ", key)
+                talk.talk(key)
                 print('Confidence 1: ', 100*value)
                 print()
                 print()

@@ -1,6 +1,6 @@
 import random 
 import string
-
+from talk import talk
 class Engine:
     def __init__(self):
         self.current_letter = None
@@ -25,22 +25,27 @@ class Engine:
     def repeat_letter(self,letter):
         if not letter or not self.validate_user_resp(letter):
             if self.current_group == 2:
-                speech_text = "Juego perdido con score " + str(self.score)
+                speech_text = "Lost game with score " + str(self.score)
+                talk("Lost game")
                 print(speech_text)
                 exit(0)
             else:
                 l = self.switch_to_group_2()
                 speech_text = "Letra incorecta, ahora " + l
+                talk("Incorrect letter now, " + l)
         else:
             self.cur_t += 1
             if self.cur_t <= moderator.maxt:
                 self.score += ord(letter)
-                speech_text = "Correcto ahora: " + self.generate_letter()
+                let = self.generate_letter()
+                speech_text = "Correcto ahora: " + let
+                talk("Good job now " + let)
             else:
                 speech_text = (
                     "Hemos acabado. Tu puntuación de hoy: " +
                     str(self.score) + "puntos ¡Enhorabuena!"
                 )
+                talk("We're done with score " + str(self.score))
         return speech_text
 
     def help_fun(self):
