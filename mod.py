@@ -1,6 +1,8 @@
 import random 
 import string
 from talk import talk
+from utils import trs
+
 class Engine:
     def __init__(self):
         self.current_letter = None
@@ -8,6 +10,7 @@ class Engine:
         self.score = 0
         self.maxt = 5
         self.cur_t = 0
+
     def start_new(self):
         self.generate_letter()
         self.score = 0
@@ -23,37 +26,31 @@ class Engine:
         return self.current_letter
 
     def repeat_letter(self,letter):
+        from handsframes import lang
         if not letter or not self.validate_user_resp(letter):
             if self.current_group == 2:
-                speech_text = "Lost game with score " + str(self.score)
-                talk("Lost game")
+                speech_text = trs[lang]["lost_score"] + str(self.score)
+                talk(trs[lang]['lost'])
                 print(speech_text)
                 exit(0)
             else:
-                l = self.switch_to_group_2()
-                speech_text = "Letra incorecta, ahora " + l
-                talk("Incorrect letter now, " + l)
+                #l = self.switch_to_group_2()
+                l = self.generate_letter()
+                speech_text = trs[lang]['inc_l'] + l
+                talk(speech_text)
         else:
             self.cur_t += 1
-            if self.cur_t <= moderator.maxt:
+            if self.cur_t <= self.maxt:
                 self.score += ord(letter)
                 let = self.generate_letter()
-                speech_text = "Correcto ahora: " + let
-                talk("Good job now " + let)
+                speech_text = trs[lang]['cn'] + let
+                talk(speech_text)
             else:
                 speech_text = (
-                    "Hemos acabado. Tu puntuación de hoy: " +
-                    str(self.score) + "puntos ¡Enhorabuena!"
+                    trs[lang]['finish'] +
+                    str(self.score) + trs[lang]['congrats']
                 )
-                talk("We're done with score " + str(self.score))
-        return speech_text
-
-    def help_fun(self):
-        speech_text = (
-            "Voy a decir algunos letras. Escucha con atención y cuando yo haya terminado, "
-            "repítalo inmediatamente. "
-            "Si necesitas saber cómo se juega, ¡pregúntame!"
-        )
+                talk(speech_text)
         return speech_text
 
 	
