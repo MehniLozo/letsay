@@ -1,13 +1,13 @@
 from google.cloud import texttospeech
 from playsound import playsound
 
-def text_to_speech(text):
+def text_to_speech(text,lc="en-US"):
     client = texttospeech.TextToSpeechClient()
     synthesis_input = texttospeech.SynthesisInput(text=text)
 
     voice = texttospeech.VoiceSelectionParams(
-        language_code="en-US",
-        name="en-US-Wavenet-D",
+        language_code=lc,
+        name=f"{lc}-Wavenet-D",
         ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
     )
 
@@ -24,8 +24,8 @@ def text_to_speech(text):
 #detected_letter = 'A'  
 #audio_data = text_to_speech(detected_letter)
 
-def talk(detected_letter):
-    audio_data = text_to_speech(detected_letter)    
+def talk(detected_letter, lc):
+    audio_data = text_to_speech(detected_letter,lc)    
     with open("output_audio.wav", "wb") as out_file:
         out_file.write(audio_data)
         

@@ -3,6 +3,8 @@ import string
 from talk import talk
 from utils import trs
 
+
+
 class Engine:
     def __init__(self):
         self.current_letter = None
@@ -27,30 +29,31 @@ class Engine:
 
     def repeat_letter(self,letter):
         from handsframes import lang
+        lc = "en-US" if lang == "en" else "es-ES" # language code
         if not letter or not self.validate_user_resp(letter):
             if self.current_group == 2:
                 speech_text = trs[lang]["lost_score"] + str(self.score)
-                talk(trs[lang]['lost'])
+                talk(trs[lang]['lost'],lc)
                 print(speech_text)
                 exit(0)
             else:
                 #l = self.switch_to_group_2()
                 l = self.generate_letter()
                 speech_text = trs[lang]['inc_l'] + l
-                talk(speech_text)
+                talk(speech_text,lc)
         else:
             self.cur_t += 1
             if self.cur_t <= self.maxt:
                 self.score += ord(letter)
                 let = self.generate_letter()
                 speech_text = trs[lang]['cn'] + let
-                talk(speech_text)
+                talk(speech_text,lc)
             else:
                 speech_text = (
                     trs[lang]['finish'] +
                     str(self.score) + trs[lang]['congrats']
                 )
-                talk(speech_text)
+                talk(speech_text,lc)
         return speech_text
 
 	

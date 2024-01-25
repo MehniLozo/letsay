@@ -37,10 +37,10 @@ h, w, c = frame.shape
 captured_frame = ''
 letterpred = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y']
 
-
+lc = "en-US" if lang == "en" else "es-ES" # language code
 print("********************** Current letter ************************")
 print(trs[lang]["perf"])
-talk.talk(trs[lang]["perf"] + moderator.current_letter)
+talk.talk(trs[lang]["perf"] + moderator.current_letter, lc)
 print(moderator.current_letter)
 print()
 print("***************************************************************")
@@ -113,7 +113,7 @@ while True:
         for key,value in letter_pred_dict.items():
             if value==pred1:
                 print("Predicted Character 1: ", key)
-                talk.talk(key)
+                talk.talk(key,lc)
                 print('Confidence 1: ', 100*value)
                 print()
                 print()
