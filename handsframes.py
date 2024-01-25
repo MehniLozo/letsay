@@ -40,7 +40,7 @@ letterpred = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', '
 
 print("********************** Current letter ************************")
 print(trs[lang]["perf"])
-#talk.talk(trs[lang]["perf"] + moderator.current_letter)
+talk.talk(trs[lang]["perf"] + moderator.current_letter)
 print(moderator.current_letter)
 print()
 print("***************************************************************")
