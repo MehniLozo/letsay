@@ -1,4 +1,5 @@
 import os
+import argparse
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import tensorflow as tf
 import cv2
@@ -7,10 +8,21 @@ from keras.models import load_model
 import numpy as np
 import time
 import pandas as pd
-from mod import Engine
 import talk
+from utils import trs
 
-model = load_model('americansign.h5')
+
+
+parser = argparse.ArgumentParser(description='letsay software')
+parser.add_argument('--lang', metavar='LANGUAGE', default='en', help='Specify the language (default: en_US)')
+
+args = parser.parse_args()
+lang = args.lang # expected to be spanish
+
+model = load_model(f'{lang}.h5')
+#trs = load_text()
+
+from mod import Engine
 moderator = Engine()
 moderator.start_new()
 mphands = mp.solutions.hands
@@ -19,7 +31,6 @@ mp_drawing = mp.solutions.drawing_utils
 cap = cv2.VideoCapture(0)
 
 _, frame = cap.read()
-
 h, w, c = frame.shape
 
 captured_frame = ''
@@ -27,8 +38,8 @@ letterpred = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', '
 
 
 print("********************** Current letter ************************")
-print()
-talk.talk("Perform" + moderator.current_letter)
+print(trs[lang]["perf"])
+#talk.talk(trs[lang]["perf"] + moderator.current_letter)
 print(moderator.current_letter)
 print()
 print("***************************************************************")
