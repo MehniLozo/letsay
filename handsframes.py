@@ -31,6 +31,7 @@ mp_drawing = mp.solutions.drawing_utils
 cap = cv2.VideoCapture(0)
 
 _, frame = cap.read()
+print("frame shape -> ", frame.shape)
 h, w, c = frame.shape
 
 captured_frame = ''

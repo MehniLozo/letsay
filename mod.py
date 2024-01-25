@@ -10,7 +10,7 @@ class Engine:
         self.score = 0
         self.maxt = 5
         self.cur_t = 0
-
+        from handsframes import lang
     def start_new(self):
         self.generate_letter()
         self.score = 0
